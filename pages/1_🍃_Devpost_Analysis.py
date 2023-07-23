@@ -1,7 +1,7 @@
 import streamlit as st
 from bs4 import BeautifulSoup
 import requests
-import cohere
+import openai
 
 st.title("Code Vert")
 ###
@@ -17,8 +17,6 @@ risk_areas = st.sidebar.multiselect(
 )
 ###
 
-co = cohere.Client(st.secrets["COHERE_TEMP_KEY"])
-
 def get_devpost(devpost_link):
     soup = BeautifulSoup(requests.get(devpost_link).text)
     app_details = soup.find(attrs={"id":"app-details-left"})
@@ -29,16 +27,15 @@ def get_devpost(devpost_link):
     return devpost_json
 
 def analyze_devpost(devpost_text, risk_areas):
-    response = co.generate(
-        prompt="Return a JSON containing (1) an assessment of the environmental risks of the following hackathon project" \
-                    + (f"especially pertaining to {','.join(risk_areas)}" if risk_areas else "") + \
-                    f" (2) proposed modifications to the project to mitigate those risks and \
-                    (3) sources of information to learn more about those risks.\n\n{devpost_text}",
-        max_tokens=200
+    response = openai.Completion.create(
+        model="ada",
+        prompt=f"You: Return a JSON containing (1) an assessment of the environmental risks of the following hackathon project" \
+            + (f"especially pertaining to {','.join(risk_areas)}" if risk_areas else "") + \
+            " (2) proposed modifications to the project to mitigate those risks and \
+            (3) sources of information to learn more about those risks.\n\n{devpost_text}",
+        stop=["You:"],
     )
-    analysis = response.generations[0].text
-
-    return analysis, ['hello', 'goodbye']
+    return response, ['hello', 'goodbye']
 
 def modify_devpost(devpost_json, action_confirm):
     return 0

@@ -1,4 +1,8 @@
 import streamlit as st
+import openai
+
+openai.organization = st.secrets["OPENAI_ORG_ID"]
+openai.api_key = st.secrets["OPENAI_SECRET_KEY"]
 
 st.set_page_config(
     page_title="Welcome to Code Vert",
