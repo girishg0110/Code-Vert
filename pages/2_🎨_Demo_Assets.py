@@ -14,7 +14,7 @@ devpost_link = st.sidebar.text_input(
 has_gallery = st.sidebar.radio("Devpost gallery?", ("Yes", "No"))
 user_submit = st.sidebar.button("Create demo!")
 st.sidebar.divider()
-n_slides = st.sidebar.slider("Slide count", min_value=1, max_value=20)
+n_slides = st.sidebar.slider("Slide count", min_value=1, max_value=5)
 ###
 
 def get_devpost(devpost_link, has_gallery=has_gallery):
