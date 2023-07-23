@@ -16,7 +16,11 @@ st.sidebar.success("Head to the Devpost Analysis to interact with the Code Vert 
 st.markdown(
     """
     Code Vert provides feedback on the environmental impact of hackathon projects and proposes strategies for risk mitigation. 
-    Contestants can gain a competitive advantage by using the Demo Assets feature to write their Devpost pages and compose their demo presentation video.
+    Contestants can gain a competitive advantage by using the Demo Assets feature to compose their demo presentation video.
     
+    * assess and address the environmental risks of your projects 🍃
+    * optimize your time distribution between building and presenting ⏰
+    * perform better in the final judging 👑 
     """
 )
+st.markdown("<p style=\"text-align:center\"><em>Good code is green code.</em></p>", unsafe_allow_html=True)
