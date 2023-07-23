@@ -28,7 +28,7 @@ n_members = st.sidebar.slider(
 def get_devpost(devpost_link, has_gallery=has_gallery):
     soup = BeautifulSoup(requests.get(devpost_link).text)
     app_details = soup.find(attrs={"id":"app-details-left"})
-    devpost_details = app_details.find_all("div")[2 if has_gallery == "Yes" else 1]
+    devpost_details = app_details.find_all("div")[2 if has_gallery == "Yes" else 0]
     devpost_json = []
     for heading, paragraph in zip(devpost_details.find_all('h2'), devpost_details.find_all('p')):
         devpost_json.append((heading.text, paragraph.text))

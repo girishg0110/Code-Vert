@@ -20,12 +20,11 @@ n_slides = st.sidebar.slider("Slide count", min_value=1, max_value=20)
 def get_devpost(devpost_link, has_gallery=has_gallery):
     soup = BeautifulSoup(requests.get(devpost_link).text)
     app_details = soup.find(attrs={"id":"app-details-left"})
-    devpost_details = app_details.find_all("div")[2 if has_gallery == "Yes" else 1]
+    devpost_details = app_details.find_all("div")[2 if has_gallery == "Yes" else 0]
     devpost_json = []
     for heading, paragraph in zip(devpost_details.find_all('h2'), devpost_details.find_all('p')):
         devpost_json.append((heading.text, paragraph.text))
     return devpost_json
-
 def get_script(devpost_text, n_slides=n_slides, message_history=message_history):
     # req = \
     #     f"""Write {n_slides} sentences presenting the following hackathon project.\n\n{devpost_text}"""
